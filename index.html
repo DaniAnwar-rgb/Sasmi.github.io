@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JajanYuk.com - Marketplace Jajanan Lokal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #667eea;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .cart-btn, .profile-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .cart-btn:hover, .profile-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Location Banner */
+        .location-banner {
+            background: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .location-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><defs><pattern id="food-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><text x="50" y="50" font-size="40" text-anchor="middle" fill="rgba(255,255,255,0.1)">🍜</text></pattern></defs><rect width="1000" height="300" fill="url(%23food-pattern)"/></svg>');
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            user-select: none;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Categories */
+        .categories {
+            padding: 60px 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            user-select: none;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .category-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .category-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Featured Products */
+        .featured {
+            padding: 60px 0;
+            background: #f8f9fa;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-color: #f0f4ff;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff4757;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .product-seller {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-desc {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .product-rating {
+            color: #ffa502;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .product-distance {
+            color: #666;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-small {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            color: white;
+        }
+        
+        .btn-cart {
+            background: #667eea;
+        }
+        
+        .btn-order {
+            background: #2ed573;
+        }
+        
+        .btn-small:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 0 20px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        
+        .cart-sidebar.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            user-select: none;
+        }
+        
+        .cart-items {
+            padding: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            user-select: none;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            background: #f1f2f6;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .qty-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+        
+        .cart-total {
+            padding: 20px;
+            border-top: 2px solid #eee;
+            background: #f8f9fa;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .total-final {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            user-select: none;
+        }
+        
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #2ed573;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                order: 3;
+                width: 100%;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">🍜 JajanYuk.com</a>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Cari jajanan favoritmu..." id="searchInput" aria-label="Input pencarian jajanan" />
+                    <button class="search-btn" id="searchBtn" aria-label="Cari jajanan">🔍</button>
+                </div>
+                <div class="nav-actions">
+                    <button class="cart-btn" onclick="toggleCart()" aria-haspopup="true" aria-expanded="false" aria-controls="cartSidebar">
+                        🛒 Keranjang
+                        <span class="cart-count" id="cartCount" style="display:none;">0</span>
+                    </button>
+                    <button class="profile-btn" aria-label="Profil saya">👤 Profil</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Location Banner -->
+    <div class="location-banner">
+        <div class="container">
+            <div class="location-info">
+                <span>📍</span>
+                <span>Desa Morobakung, Kecamatan Manyar, Kabupaten Gresik</span>
+                <button style="background: none; border: 1px solid #667eea; color: #667eea; padding: 5px 15px; border-radius: 15px; cursor: pointer; margin-left: auto;" aria-label="Ubah lokasi">Ubah Lokasi</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Jajanan Lokal Terbaik di Sekitarmu</h1>
+            <p>Pesan jajanan segar dari UMKM lokal dengan mudah dan cepat</p>
+            <div class="cta-buttons">
+                <a href="#featured" class="btn btn-primary" aria-label="Mulai Belanja">🛒 Mulai Belanja</a>
+                <a href="#" class="btn btn-secondary" aria-label="Daftar Pedagang">👨‍🍳 Daftar Pedagang</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Kategori Populer</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="filterProducts('makanan-berat')" role="button" tabindex="0" aria-label="Filter kategori Makanan Berat">
+                    <div class="icon" aria-hidden="true">🍛</div>
+                    <h3>Makanan Berat</h3>
+                    <p>Nasi, lauk pauk, dan makanan mengenyangkan</p>
+                </div>
+                <div class="category-card" onclick="filterProducts('cemilan')" role="button" tabindex="0" aria-label="Filter kategori Cemilan">
+                    <div class="icon" aria-hidden="true">🍪</div>
+                    <h3>Cemilan</h3>
+                    <p>Keripik, kue, dan snack tradisional</p>
+                </div>
+                <div class="category-card" onclick="filterProducts('minuman')" role="button" tabindex="0" aria-label="Filter kategori Minuman">
+                    <div class="icon" aria-hidden="true">🥤</div>
+                    <h3>Minuman</h3>
+                    <p>Jus, es, dan minuman segar</p>
+                </div>
+                <div class="category-card" onclick="filterProducts('dessert')" role="button" tabindex="0" aria-label="Filter kategori Dessert">
+                    <div class="icon" aria-hidden="true">🍰</div>
+                    <h3>Dessert</h3>
+                    <p>Kue manis dan pencuci mulut</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Products -->
+    <section class="featured" id="featured">
+        <div class="container">
+            <h2 class="section-title">Jajanan Terpopuler</h2>
+            <div class="product-grid" id="productGrid" aria-live="polite">
+                <!-- Produk akan dimasukkan oleh JavaScript -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>JajanYuk.com</h3>
+                    <p>Platform marketplace yang menghubungkan UMKM jajanan lokal dengan masyarakat sekitar.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Layanan</h3>
+                    <ul>
+                        <li><a href="#">Pesan Antar</a></li>
+                        <li><a href="#">Pre-Order</a></li>
+                        <li><a href="#">Pickup</a></li>
+                        <li><a href="#">Catering</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Dukungan</h3>
+                    <ul>
+                        <li><a href="#">Pusat Bantuan</a></li>
+                        <li><a href="#">Hubungi Kami</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Kebijakan</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Bergabung</h3>
+                    <ul>
+                        <li><a href="#">Daftar Pedagang</a></li>
+                        <li><a href="#">Jadi Kurir</a></li>
+                        <li><a href="#">Partnership</a></li>
+                        <li><a href="#">Karir</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 JajanYuk.com. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar" aria-label="Keranjang Belanja" role="complementary" aria-hidden="true">
+        <div class="cart-header">
+            <h3>🛒 Keranjang Belanja</h3>
+            <button class="cart-close" aria-label="Tutup keranjang" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems" tabindex="0">
+            <p style="text-align: center; color: #666; padding: 40px 20px;">Keranjang masih kosong</p>
+        </div>
+        <div class="cart-total" id="cartTotal" style="display: none;">
+            <div class="total-row">
+                <span>Subtotal:</span>
+                <span id="subtotal">Rp 0</span>
+            </div>
+            <div class="total-row">
+                <span>Ongkir:</span>
+                <span id="shipping">Rp 3.000</span>
+            </div>
+            <div class="total-row total-final">
+                <span>Total:</span>
+                <span id="finalTotal">Rp 0</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()" aria-label="Bayar dan Checkout">Checkout Sekarang</button>
+        </div>
+    </div>
+    
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" aria-hidden="true" onclick="toggleCart()"></div>
+    
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true" style="display:none;"></div>
+    
+    <script>
+        // Data produk terkelompok per kategori
+        const productsByCategory = {
+            'makanan-berat': [
+                {
+                    id: 1,
+                    name: "Bandeng Presto Phiephot",
+                    badge: "Terlaris",
+                    seller: "Bu Pipit",
+                    description: "Bandeng Presto setengah Kilo + Sambal + Nasi + Air Mineral",
+                    price: 45000,
+                    rating: 4.8,
+                    reviews: 24,
+                    distance: "200m",
+                    imageUrl: "https://paxelmarket.co/wp-content/uploads/2022/03/WhatsApp-Image-2022-03-08-at-21.25.04-3.jpeg"
+                },
+                {
+                    id: 2,
+                    name: "Bakso Beranak Pak Supono",
+                    badge: "Rating Tertinggi",
+                    seller: "Pak Supono",
+                    description: "Berisi Tetelan, Gajih, Pentol Kecil, dan Telur Puyuh",
+                    price: 45000,
+                    rating: 4.9,
+                    reviews: 31,
+                    distance: "150m",
+                    imageUrl: "https://3.bp.blogspot.com/-OguCI0YMlDY/WLk71hiH97I/AAAAAAAAA2U/EozvAala_BcfyD_X5noMonHi5gF0D8rZQCLcB/s1600/bakso-beranak-1.jpg"
+                },
+                {
+                    id: 3,
+                    name: "Ayam Betutu Legendaris",
+                    badge: "Menu Baru",
+                    seller: "Bu Leni",
+                    description: "Ayam Broiler + Sambal + Nasi + Air Mineral",
+                    price: 45000,
+                    rating: 4.6,
+                    reviews: 35,
+                    distance: "350m",
+                    imageUrl: "https://www.resepistimewa.com/wp-content/uploads/ayam-betutu-bali.jpg"
+                }
+            ],
+            'cemilan': [
+                {
+                    id: 4,
+                    name: "Keripik Usus Neng Oeoes",
+                    badge: "Premium",
+                    seller: "Ibu Uus",
+                    description: "Dari Usus Berkualitas dan Menggunakan Bahan Premium, Kemasan 0.5 Kilo",
+                    price: 50000,
+                    rating: 4.7,
+                    reviews: 37,
+                    distance: "300m",
+                    imageUrl: "https://th.bing.com/th/id/OIP.gUGE6gdGB7bHp4oK5NywtwHaHa?rs=1&pid=ImgDetMain&cb=idpwebp1&o=7&rm=3"
+                },
+                {
+                    id: 5,
+                    name: "Keripik Tripang Cak Mud",
+                    badge: "Premium",
+                    seller: "Pak Mahmud",
+                    description: "Dari Tripang Berkualitas dan Menggunakan Bahan Premium, Kemasan 250 gram",
+                    price: 45000,
+                    rating: 4.7,
+                    reviews: 40,
+                    distance: "400m",
+                    imageUrl: "https://cf.shopee.co.id/file/3fe3fa213b3baf316d88a4af6b9c1430"
+                },
+                {
+                    id: 6,
+                    name: "Keripik Tempe Sagu Ana",
+                    badge: "Premium",
+                    seller: "Ibu Ana",
+                    description: "Dari Tempe yang Berkualitas dan Menggunakan Bahan Premium, Kemasan 1 kilo",
+                    price: 45000,
+                    rating: 4.7,
+                    reviews: 31,
+                    distance: "150m",
+                    imageUrl: "https://th.bing.com/th/id/OIP.MlFehTUiW7-JlvhUiiNDQQHaHa?rs=1&pid=ImgDetMain&cb=idpwebp1&o=7&rm=3"
+                },
+            ],
+            'minuman': [
+                // Tambahkan produk minuman sesuai kebutuhan
+            ],
+            'dessert': [
+                // Tambahkan produk dessert sesuai kebutuhan
+            ]
+        };
+
+        // Mengumpulkan semua produk untuk search
+        function getAllProducts() {
+            return Object.values(productsByCategory).flat();
+        }
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            let filtered = [];
+
+            if (filter === 'all') {
+                filtered = getAllProducts();
+            } else if (productsByCategory[filter]) {
+                filtered = productsByCategory[filter];
+            }
+
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.imageUrl}" alt="Gambar ${product.name}" loading="lazy" />
+                        <div class="product-badge">${product.badge}</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${product.name}</div>
+                        <div class="product-seller">👨‍🍳 ${product.seller}</div>
+                        <div class="product-desc">${product.description}</div>
+                        <div class="product-meta">
+                            <div class="product-rating" aria-label="Rating produk">${'⭐'.repeat(Math.floor(product.rating))} ${product.rating} (${product.reviews} review)</div>
+                            <div class="product-distance">📍 ${product.distance}</div>
+                        </div>
+                        <div class="product-price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                        <div class="product-actions">
+                            <button class="btn-small btn-cart" onclick="addToCart(${product.id})" aria-label="Tambah ${product.name} ke keranjang">🛒 Tambah</button>
+                            <button class="btn-small btn-order" onclick="quickOrder(${product.id})" aria-label="Pesan ${product.name} sekarang">Pesan Sekarang</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            if(filtered.length === 0) {
+                grid.innerHTML = '<p style="text-align:center; color:#666; padding:40px 20px;">Produk tidak ditemukan untuk kategori ini.</p>';
+            }
+        }
+
+        let cart = [];
+
+        function addToCart(productId) {
+            const product = getAllProducts().find(p => p.id === productId);
+            if(product) {
+                cart.push(product);
+                updateCartCount();
+                showToast(`${product.name} ditambahkan ke keranjang!`);
+            }
+        }
+
+        function quickOrder(productId) {
+            addToCart(productId);
+            toggleCart();
+            const product = getAllProducts().find(p => p.id === productId);
+            showToast(`Pesanan untuk ${product.name} diproses segera!`);
+        }
+
+        function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            cartCount.textContent = cart.length;
+            cartCount.style.display = cart.length > 0 ? 'flex' : 'none';
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('overlay');
+            const expanded = sidebar.classList.toggle('open');
+            overlay.classList.toggle('active', expanded);
+            sidebar.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+            if (expanded) renderCartItems();
+            // Update aria-expanded for button
+            const cartBtn = document.querySelector('.cart-btn');
+            if(cartBtn) cartBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+            if(cart.length === 0){
+                container.innerHTML = '<p style="text-align:center; color:#666; padding:40px 20px;">Keranjang masih kosong</p>';
+                document.getElementById('cartTotal').style.display = 'none';
+                return;
+            }
+            let subtotal = 0;
+            cart.forEach(item => {
+                subtotal += item.price;
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <div class="cart-item-image">
+                        <img src="${item.imageUrl}" alt="Gambar ${item.name}" style="width:60px;height:60px;object-fit:cover;border-radius:10px;" loading="lazy" />
+                    </div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            document.getElementById('cartTotal').style.display = 'block';
+            document.getElementById('subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            document.getElementById('finalTotal').textContent = `Rp ${(subtotal + 3000).toLocaleString('id-ID')}`;
+        }
+
+        function checkout() {
+            if(cart.length === 0){
+                showToast('Keranjang masih kosong!');
+                return;
+            }
+            cart = [];
+            updateCartCount();
+            toggleCart();
+            showToast('Checkout berhasil! Terima kasih telah berbelanja.');
+        }
+
+        function showToast(message){
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartCount();
+
+            // Pencarian sederhana
+            const searchBtn = document.getElementById('searchBtn');
+            const searchInput = document.getElementById('searchInput');
+            searchBtn.addEventListener('click', () => {
+                const query = searchInput.value.toLowerCase();
+                const filtered = getAllProducts().filter(p =>
+                    p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
+                );
+                const grid = document.getElementById('productGrid');
+                grid.innerHTML = '';
+                filtered.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.imageUrl}" alt="Gambar ${product.name}" loading="lazy" />
+                            <div class="product-badge">${product.badge}</div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-title">${product.name}</div>
+                            <div class="product-seller">👨‍🍳 ${product.seller}</div>
+                            <div class="product-desc">${product.description}</div>
+                            <div class="product-meta">
+                                <div class="product-rating" aria-label="Rating produk">${'⭐'.repeat(Math.floor(product.rating))} ${product.rating} (${product.reviews} review)</div>
+                                <div class="product-distance">📍 ${product.distance}</div>
+                            </div>
+                            <div class="product-price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                            <div class="product-actions">
+                                <button class="btn-small btn-cart" onclick="addToCart(${product.id})" aria-label="Tambah ${product.name} ke keranjang">🛒 Tambah</button>
+                                <button class="btn-small btn-order" onclick="quickOrder(${product.id})" aria-label="Pesan ${product.name} sekarang">Pesan Sekarang</button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+                if (filtered.length === 0) {
+                    grid.innerHTML = '<p style="text-align:center; color:#666; padding:40px 20px;">Produk tidak ditemukan untuk pencarian ini.</p>';
+                }
+            });
+        });
+
+        // Fungsi filter berdasarkan kategori
+        function filterProducts(category) {
+            renderProducts(category);
+        }
+    </script>
+</body>
+</html>
+
